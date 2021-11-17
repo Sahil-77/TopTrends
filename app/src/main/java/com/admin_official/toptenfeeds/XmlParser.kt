@@ -1,7 +1,6 @@
 package com.admin_official.toptenfeeds
 
 import android.os.AsyncTask
-import android.util.Log
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 
@@ -42,7 +41,7 @@ class XmlParser (private val callback: XmlParserCallback): AsyncTask<String, Voi
     }
 
     override fun callBackDownloadThread(result: String?): Boolean {
-        Log.d(TAG, "callBackDownloadThread: xml -> $result")
+//        Log.d(TAG, "callBackDownloadThread: xml -> $result")
         var status = true
         var inEntry = false
         var textValue = ""
@@ -74,7 +73,7 @@ class XmlParser (private val callback: XmlParserCallback): AsyncTask<String, Voi
                         if(inEntry) {
                             when(tagName) {
                                 "entry" -> {
-                                    Log.d(TAG, "callBackDownloadThread: $curr")
+//                                    Log.d(TAG, "callBackDownloadThread: $curr")
                                     feedEntries.add(FeedEntry(curr[0], curr[1], curr[2], curr[3], curr[4]))
                                     curr = mutableListOf("", "", "", "", "")
                                 }
@@ -100,9 +99,9 @@ class XmlParser (private val callback: XmlParserCallback): AsyncTask<String, Voi
             status = false
         }
 
-        for(i in feedEntries) {
-            Log.d(TAG, "callBackDownloadThread: $i")
-        }
+//        for(i in feedEntries) {
+//            Log.d(TAG, "callBackDownloadThread: $i")
+//        }
         return status
     }
 }

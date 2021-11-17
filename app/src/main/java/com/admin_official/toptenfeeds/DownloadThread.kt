@@ -16,8 +16,8 @@ class DownloadThread(private val callback: DownloadThreadCallback): AsyncTask<St
     }
 
     override fun onPostExecute(result: String?) {
-        Log.d(TAG, "onPostExecute: result: $result")
-        Log.d(TAG, "onPostExecute: hello")
+//        Log.d(TAG, "onPostExecute: result: $result")
+//        Log.d(TAG, "onPostExecute: hello")
         callback.callBackDownloadThread(result)
     }
 
@@ -31,6 +31,7 @@ class DownloadThread(private val callback: DownloadThreadCallback): AsyncTask<St
     }
 
     private fun downloadXml(urlPath: String?) : String? {
+        Log.d(TAG, "downloadXml: downloaded")
         val url = URL(urlPath)
         return try {
             url.readText();
