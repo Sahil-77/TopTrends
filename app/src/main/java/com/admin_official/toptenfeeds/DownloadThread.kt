@@ -16,8 +16,6 @@ class DownloadThread(private val callback: DownloadThreadCallback): AsyncTask<St
     }
 
     override fun onPostExecute(result: String?) {
-//        Log.d(TAG, "onPostExecute: result: $result")
-//        Log.d(TAG, "onPostExecute: hello")
         callback.callBackDownloadThread(result)
     }
 

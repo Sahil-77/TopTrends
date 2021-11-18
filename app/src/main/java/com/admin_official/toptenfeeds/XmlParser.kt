@@ -13,19 +13,10 @@ data class FeedEntry
      val artist: String,
      val summary: String,
      val releaseDate: String,
-     val imageUrl: String) {
+     val imageUrl: String) {}
 
-    override fun toString(): String =
-        """
-            name -> $name
-            artist -> $artist
-            summary -> $summary
-            realeaseDate -> $releaseDate
-            image -> $imageUrl
-        """.trimIndent()
-}
-
-class XmlParser (private val callback: XmlParserCallback): AsyncTask<String, Void, Unit>(), DownloadThreadCallback {
+class XmlParser (private val callback: XmlParserCallback):
+    AsyncTask<String, Void, Unit>(), DownloadThreadCallback {
 
     private val TAG = "De_XmlParser"
 
@@ -41,7 +32,6 @@ class XmlParser (private val callback: XmlParserCallback): AsyncTask<String, Voi
     }
 
     override fun callBackDownloadThread(result: String?): Boolean {
-//        Log.d(TAG, "callBackDownloadThread: xml -> $result")
         var status = true
         var inEntry = false
         var textValue = ""
@@ -73,25 +63,20 @@ class XmlParser (private val callback: XmlParserCallback): AsyncTask<String, Voi
                         if(inEntry) {
                             when(tagName) {
                                 "entry" -> {
-//                                    Log.d(TAG, "callBackDownloadThread: $curr")
-                                    feedEntries.add(FeedEntry(curr[0], curr[1], curr[2], curr[3], curr[4]))
+                                    feedEntries.add(FeedEntry
+                                        (curr[0], curr[1], curr[2], curr[3], curr[4]))
+
                                     curr = mutableListOf("", "", "", "", "")
                                 }
-
                                 "name" -> curr[0] = textValue
-
                                 "artist" -> curr[1] = textValue
-
                                 "summary" -> curr[2] = textValue
-
                                 "releaseDate" -> curr[3] = textValue
-
                                 "image" -> curr[4] = textValue
                             }
                         }
                     }
                 }
-
                 eventType = xpp.next()
             }
         } catch (e: Exception) {
@@ -99,9 +84,6 @@ class XmlParser (private val callback: XmlParserCallback): AsyncTask<String, Voi
             status = false
         }
 
-//        for(i in feedEntries) {
-//            Log.d(TAG, "callBackDownloadThread: $i")
-//        }
         return status
     }
 }

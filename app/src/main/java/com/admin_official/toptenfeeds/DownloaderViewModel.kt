@@ -24,7 +24,6 @@ class DownloaderViewModel: ViewModel(), DownloadThreadCallback, XmlParserCallbac
 
     fun download(url: String) {
         if(prevUrl == url) {
-//            PFeedEntries.value = PFeedEntries.value
             return
         } else prevUrl = url
 

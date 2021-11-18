@@ -17,10 +17,15 @@ data class ViewHolder(val v: View) {
     val summary = v.findViewById<TextView>(R.id.feed_summary)
 }
 
-class ListViewAdapter(private val feedEntries: List<FeedEntry>, context: Context, private val resource: Int)
+class ListViewAdapter(var feedEntries: List<FeedEntry>, context: Context, private val resource: Int)
     : ArrayAdapter<FeedEntry>(context, resource) {
 
     val inflater = LayoutInflater.from(context)
+
+    fun setFeedList(list: List<FeedEntry>) {
+        this.feedEntries = list
+        notifyDataSetChanged()
+    }
 
     override fun getCount(): Int = feedEntries.size
 
@@ -42,11 +47,7 @@ class ListViewAdapter(private val feedEntries: List<FeedEntry>, context: Context
         viewHolder.title.text = entry.name
         viewHolder.artist.text = entry.artist
         viewHolder.summary.text = entry.summary
-//        Picasso.get()
-//            .load(entry.imageUrl)
-//            .placeholder(R.drawable.placeholder)
-//            .error(R.drawable.placeholder)
-//            .into(viewHolder.image)
+
         Glide.with(context)
             .load(entry.imageUrl)
             .transition(DrawableTransitionOptions.withCrossFade(400))
